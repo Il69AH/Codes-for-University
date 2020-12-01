@@ -1,0 +1,30 @@
+def printLetterPercentage(file):
+	alphabet = {}
+	signs = """.,!?/"';:-#№%^&*()[]}{<>"""
+	temp = []
+	amountOfWords = 0	
+	with open(file) as f:
+		temp = f.read().split()
+	for word in temp:
+		for char in word:
+			if ord('A') <= ord(char) <= ord('Z')\
+			or ord('a') <= ord(char) <= ord('z'):
+				if not(char.upper() in alphabet.keys()):
+					alphabet[char.upper()] = []
+					alphabet[char.upper()].append(1)
+					alphabet[char.upper()].append(False)
+				elif char.upper() in alphabet.keys() and alphabet[char.upper()][1] == True:
+					alphabet[char.upper()][0] += 1
+					alphabet[char.upper()].append(False)
+		for char in range(ord('A'),ord('Z') + 1):
+			if chr(char) in alphabet.keys():
+				alphabet[chr(char)][1] = True	
+		amountOfWords += 1
+	for char in range(ord('A'),ord('Z') + 1):
+		if chr(char) in alphabet.keys():
+			print(chr(char),\
+			'occurs in {0:.2f}'.format(float(alphabet[chr(char)][0]*100/amountOfWords)),\
+			'percent of words')
+		else:
+			print(chr(char),'occurs in {0:.2f}'.format(float(0)), 'percent of words')
+#printLetterPercentage('gadsby	.txt')
